@@ -1,0 +1,24 @@
+{
+  "profiles": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "Scarlet/Violet": {
+      "commandName": "Project",
+      "commandLineArgs": "living -v \"sv\" -n \"Scarlet-Violet Normal\""
+    },
+    "Scarlet/Violet Shiny": {
+      "commandName": "Project",
+      "commandLineArgs": "living -v \"sv\" -n \"Scarlet-Violet Shiny\" -s --uniquealcremie "
+    },
+    "Home Shiny": {
+      "commandName": "Project",
+      "commandLineArgs": "living -v \"home\" -s --uniquealcremie -n \"Home Shiny\""
+    },
+    "Home Living": {
+      "commandName": "Project",
+      "commandLineArgs": "living -v \"home\" -n \"Home Normal\""
+    }
+  }
+}
