@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Pokedex.Logic.Models;
 using Pokedex.Logic.WebClients;
 using Pokedex.Models.ProcessOptions;
+using System.Text.RegularExpressions;
 
 namespace Pokedex.Logic.Processes
 {
@@ -37,12 +38,40 @@ namespace Pokedex.Logic.Processes
             var spriteBytes = await _pokeHttpClient.GetSpriteSheetBytesAsync(options.IsShinyDex);
             var sourceImage = Image.Load<Rgba32>(spriteBytes);
 
+            // Get form info
+            var forms = await _pokeHttpClient.GetPokeFormsAsync();
+
             // Split the source image based on the sprite coords
             // Creates a rect for the area to select and writes the data to the target image
             foreach (var coords in spriteCoords)
             {
-                var identifier = coords.Key.ToLower();
-                _logger.LogInformation("Parsing Sprite for: {identifier}", identifier);
+                var formIdentifier = coords.Key.ToLower();
+
+                // Find the national id. IE: 0001, 0002, 0003-f
+                var spriteIdentifier = forms.FirstOrDefault(f => f.Id == formIdentifier)?.Nid;
+                if(string.IsNullOrEmpty(spriteIdentifier) == true)
+                    spriteIdentifier = forms.FirstOrDefault(f => $"{f.Id}-{f.FormId}" == formIdentifier)?.Nid;
+
+                // Some unreleased pokes may not have a national id, so they will have a value of 0000
+                // Clear that value so that they will be populated with their form name instead. IE: 0000 -> terapagos
+                if(string.IsNullOrEmpty(spriteIdentifier) == false)
+                {
+                    var splitId = spriteIdentifier.Split('-');
+                    if (int.TryParse(splitId[0], out var nationalId) == true && nationalId == 0)
+                        spriteIdentifier = string.Empty;
+                }
+
+                if (string.IsNullOrEmpty(spriteIdentifier) == true)
+                {
+                    _logger.LogWarning("Could not find Form Nid for: {formIdentifier}", formIdentifier);
+                    spriteIdentifier = formIdentifier;
+                }
+
+
+
+
+
+                _logger.LogDebug("Parsing Sprite for: {formIdentifier}", formIdentifier);
 
                 var (row, col) = coords.Value;
                 var sourceArea = new Rectangle(spriteWidth * col, spriteHeight * row, spriteWidth, spriteHeight);
@@ -70,7 +99,7 @@ namespace Pokedex.Logic.Processes
                 targetImage.Mutate(image => image.Resize(resizeOptions));
 
                 // Now that we have the target, we can save it 
-                var outputFile = Path.Combine(options.OutputDirectory, $"{identifier}.png");
+                var outputFile = Path.Combine(options.OutputDirectory, $"{spriteIdentifier}.png");
                 await targetImage.SaveAsPngAsync(outputFile);
             }
 
