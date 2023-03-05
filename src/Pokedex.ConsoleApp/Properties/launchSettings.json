@@ -19,6 +19,14 @@
     "Home Living": {
       "commandName": "Project",
       "commandLineArgs": "living -v \"home\" -n \"Home Normal\""
+    },
+    "Home Normal Sprites": {
+      "commandName": "Project",
+      "commandLineArgs": "homesprites"
+    },
+    "Home Shiny Sprites": {
+      "commandName": "Project",
+      "commandLineArgs": "homesprites -s"
     }
   }
 }

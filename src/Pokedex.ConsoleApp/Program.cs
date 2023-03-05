@@ -14,7 +14,7 @@ namespace Pokedex.ConsoleApp
     {
         static IHost _host;
 
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             _host = BuildHost(args);
 
@@ -25,8 +25,9 @@ namespace Pokedex.ConsoleApp
             });
 
 
-            await parser.ParseArguments<LivingDexOptions>(args)
-                .WithParsedAsync<LivingDexOptions>(options => RunGenerateLivingDex(options));
+            parser.ParseArguments<LivingDexOptions, DownloadHomeSpritesOptions>(args)
+                .WithParsed<LivingDexOptions>(RunGenerateLivingDex)
+                .WithParsed<DownloadHomeSpritesOptions>(RunDownloadHomeSprites);
         }
 
 
@@ -44,7 +45,9 @@ namespace Pokedex.ConsoleApp
             builder.ConfigureServices((context, services) =>
             {
                 services.AddTransient<IPokeHttpClient, PokeHttpClient>();
+
                 services.AddTransient<GenerateLivingDex, GenerateLivingDex>();
+                services.AddTransient<DownloadHomeSprites, DownloadHomeSprites>();
 
                 WebClientHelper.Configuration = context.Configuration;
             });
@@ -61,10 +64,16 @@ namespace Pokedex.ConsoleApp
             return host;
         }
 
-        static async Task RunGenerateLivingDex(LivingDexOptions options)
+        static void RunGenerateLivingDex(LivingDexOptions options)
         {
             var process = _host.Services.GetService<GenerateLivingDex>();
-            await process.Execute(options);
+            process.Execute(options).GetAwaiter().GetResult();
+        }
+
+        static void RunDownloadHomeSprites(DownloadHomeSpritesOptions options)
+        {
+            var process = _host.Services.GetService<DownloadHomeSprites>();
+            process.Execute(options).GetAwaiter().GetResult();
         }
 
 

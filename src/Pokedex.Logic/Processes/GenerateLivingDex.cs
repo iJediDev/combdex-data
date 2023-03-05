@@ -10,7 +10,7 @@ namespace Pokedex.Logic.Processes
 {
     public class GenerateLivingDex
     {
-        private readonly ILogger<GenerateLivingDex> _logger;
+        private readonly ILogger _logger;
         private readonly IPokeHttpClient _pokeHttpClient;
 
         public GenerateLivingDex(ILogger<GenerateLivingDex> logger, IPokeHttpClient pokeHttpClient)
