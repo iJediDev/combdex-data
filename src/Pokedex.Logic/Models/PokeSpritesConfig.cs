@@ -11,5 +11,10 @@
         public int SpriteWidth { get; set; }
 
         public int SpriteHeight { get; set; }
+
+
+        public int SpriteResizeWidth { get; set; }
+
+        public int SpriteResizeHeight { get; set; }
     }
 }

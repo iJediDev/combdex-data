@@ -59,6 +59,16 @@ namespace Pokedex.Logic.Processes
                     }
                 });
 
+                // Shrink the image
+                var resizeOptions = new ResizeOptions()
+                {
+                    Size = new Size(_spritesConfig.SpriteResizeWidth, _spritesConfig.SpriteResizeHeight),
+                    Sampler = KnownResamplers.Lanczos8,
+                    Compand = true,
+                    Mode = ResizeMode.Stretch
+                };
+                targetImage.Mutate(image => image.Resize(resizeOptions));
+
                 // Now that we have the target, we can save it 
                 var outputFile = Path.Combine(options.OutputDirectory, $"{identifier}.png");
                 await targetImage.SaveAsPngAsync(outputFile);
