@@ -19,7 +19,7 @@ namespace Pokedex.Logic.Processes
             _pokeHttpClient = pokeHttpClient;
         }
 
-        public async Task Execute(LivingDexOptions options)
+        public async Task<LivingPokedex> Execute(LivingDexOptions options)
         {
             var forms = await _pokeHttpClient.GetPokemonStorableInAsync(options.GameVersion);
 
@@ -66,11 +66,15 @@ namespace Pokedex.Logic.Processes
             dex.Identifier = options.DexName.ToLower().Replace(" ", "-");
             dex.Boxes = boxes;
 
+            return dex;
+        }
 
+        public async Task WriteToFile(LivingDexOptions options, LivingPokedex dex)
+        {
             // Write output
             var json = JsonConvert.SerializeObject(dex);
             var parentDir = Directory.GetParent(options.OutputDirectory).FullName;
-            if(Directory.Exists(parentDir) == false)
+            if (Directory.Exists(parentDir) == false)
                 Directory.CreateDirectory(parentDir);
 
             var fileName = $"{dex.Identifier}_livingdex.json".Replace("-", "_");
@@ -78,7 +82,6 @@ namespace Pokedex.Logic.Processes
 
             _logger.LogInformation($"Writing file to: {filePath}");
             await File.WriteAllTextAsync(filePath, json);
-
         }
     }
 }

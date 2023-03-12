@@ -67,7 +67,8 @@ namespace Pokedex.ConsoleApp
         static void RunGenerateLivingDex(LivingDexOptions options)
         {
             var process = _host.Services.GetService<GenerateLivingDex>();
-            process.Execute(options).GetAwaiter().GetResult();
+            var dex = process.Execute(options).GetAwaiter().GetResult();
+            process.WriteToFile(options, dex).GetAwaiter().GetResult();
         }
 
         static void RunDownloadHomeSprites(DownloadHomeSpritesOptions options)

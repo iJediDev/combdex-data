@@ -18,6 +18,8 @@ namespace Pokedex.Models.LivingDex
 
         public string Name => Form?.Name;
 
+        public bool IsFemaleForm => Form?.IsFemaleForm ?? false;
+
         public bool IsShiny { get; set; }
 
         public bool IsAvailable

@@ -44,7 +44,7 @@ namespace Pokedex.Logic.WebClients
             var (baseUri, resource) = SplitUrl(url);
 
             // Check for cache first
-            var content = await GetCachedStringAsync(baseUri, resource);
+            var content = await GetCachedStringAsync(resource, cacheFolder);
             if(string.IsNullOrEmpty(content))
             {
                 // Get new data
