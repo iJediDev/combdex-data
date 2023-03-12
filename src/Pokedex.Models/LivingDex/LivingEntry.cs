@@ -41,9 +41,6 @@ namespace Pokedex.Models.LivingDex
         [JsonIgnore]
         public bool IsRegionalForm => Form?.IsRegional == true && IsPikachuCap == false;
 
-        [JsonIgnore]
-        public int DexNumber => Form?.DexNum ?? -1;
-
         public LivingEntry(PokemonForm form)
         {
             this.Form = form;

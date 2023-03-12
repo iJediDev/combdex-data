@@ -10,6 +10,8 @@
         /// </summary>
         public string Identifier { get; set; }
 
+        public int DexNumber { get; set; }
+
         public string Name { get; set; }
 
         public string Type1 { get; set; }

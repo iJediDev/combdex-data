@@ -109,6 +109,7 @@ namespace Pokedex.Logic.Processes
                 result.Name = form.Name;
 
                 var detail = formDetails.FirstOrDefault(f => f.Nid == result.Identifier);
+                result.DexNumber = detail.DexNum;
                 result.Type1 = detail.Type1.ToString().ToLower();
                 result.Type2 = detail.Type2?.ToString().ToLower();
 
