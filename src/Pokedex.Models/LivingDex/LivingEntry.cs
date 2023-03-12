@@ -41,8 +41,6 @@ namespace Pokedex.Models.LivingDex
         [JsonIgnore]
         public bool IsRegionalForm => Form?.IsRegional == true && IsPikachuCap == false;
 
-        public string Serebii => Form?.Refs.Serebii;
-
         public LivingEntry(PokemonForm form)
         {
             this.Form = form;
