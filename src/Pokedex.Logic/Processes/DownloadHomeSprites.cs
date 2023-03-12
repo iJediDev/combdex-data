@@ -28,13 +28,6 @@ namespace Pokedex.Logic.Processes
             if (Directory.Exists(options.OutputDirectory) == false)
                 Directory.CreateDirectory(options.OutputDirectory);
 
-            var bigOutputDir = Path.Combine(options.OutputDirectory, "big");
-            Directory.CreateDirectory(bigOutputDir);
-
-            var smallOutputDir = Path.Combine(options.OutputDirectory, "small");
-            Directory.CreateDirectory(smallOutputDir);
-
-
             // Get the coords for the pokemon sprites from a CSS file
             var spriteWidth = _spritesConfig.SpriteWidth;
             var spriteHeight = _spritesConfig.SpriteHeight;
@@ -95,11 +88,6 @@ namespace Pokedex.Logic.Processes
                     }
                 });
 
-                // Write large version first
-                var outputFile = Path.Combine(bigOutputDir, $"{spriteIdentifier}.png");
-                await targetImage.SaveAsPngAsync(outputFile);
-
-
                 // Shrink the image
                 var resizeOptions = new ResizeOptions()
                 {
@@ -111,7 +99,7 @@ namespace Pokedex.Logic.Processes
                 targetImage.Mutate(image => image.Resize(resizeOptions));
 
                 // Now that we have the target, we can save it 
-                outputFile = Path.Combine(smallOutputDir, $"{spriteIdentifier}.png");
+                var outputFile = Path.Combine(options.OutputDirectory, $"{spriteIdentifier}.png");
                 await targetImage.SaveAsPngAsync(outputFile);
             }
 
