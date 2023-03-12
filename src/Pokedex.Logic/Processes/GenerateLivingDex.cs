@@ -106,13 +106,11 @@ namespace Pokedex.Logic.Processes
 
                 var result = new PokeDetail();
                 result.Identifier = form.Identifier;
-                result.Name = form.Name;
 
                 var detail = formDetails.FirstOrDefault(f => f.Nid == result.Identifier);
                 result.DexNumber = detail.DexNum;
                 result.Type1 = detail.Type1.ToString().ToLower();
                 result.Type2 = detail.Type2?.ToString().ToLower();
-                result.IsFemaleForm = detail.IsFemaleForm;
 
                 // Get evolutions, excluding the current form
                 var evoFamily = evolutions.Where(e => e.FamilySpeciesNumbers.Contains(detail.DexNum)).FirstOrDefault();

@@ -12,13 +12,9 @@
 
         public int DexNumber { get; set; }
 
-        public string Name { get; set; }
-
         public string Type1 { get; set; }
 
         public string Type2 { get; set; }
-
-        public bool IsFemaleForm { get; set; }
 
         /// <summary>
         /// List of {dexNum}-{form}
