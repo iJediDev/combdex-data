@@ -12,6 +12,7 @@ namespace Pokedex.Logic.WebClients
         private readonly PokeSpritesConfig _spritesConfig;
 
         private const string SuperEffectiveAssets = "SuperEffectiveAssets";
+        private const string PokemonDb = "PokemonDb";
 
         public PokeHttpClient(ILogger<PokeHttpClient> logger, IConfiguration config)
         {
@@ -73,6 +74,12 @@ namespace Pokedex.Logic.WebClients
             var uri = isShiny ? _spritesConfig.ShinySpriteURI : _spritesConfig.SpriteURI;
             var content = await WebClientHelper.GetResourceBytesAsync(uri, SuperEffectiveAssets);
             return content;
+        }
+
+        public async Task<string> GetPokeEvolutionHtmlAsync()
+        {
+            var result = await WebClientHelper.GetResourceAsync<string>(_config["PokeEvolutionsURI"], PokemonDb);
+            return result;
         }
     }
 }
