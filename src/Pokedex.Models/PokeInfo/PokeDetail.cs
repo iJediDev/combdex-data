@@ -18,6 +18,8 @@
 
         public string Type2 { get; set; }
 
+        public bool IsFemaleForm { get; set; }
+
         /// <summary>
         /// List of {dexNum}-{form}
         /// Alcremie would be: 0869-caramel-swirl-flower
