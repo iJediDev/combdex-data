@@ -4,6 +4,7 @@ namespace Pokedex.Logic.WebClients
 {
     public interface IPokeHttpClient
     {
+        (string, string) GetNameAndForm(PokemonForm pokemonForm);
         Task<string> GetPokeEvolutionHtmlAsync();
         Task<List<PokemonForm>> GetPokeFormsAsync();
         Task<List<PokemonForm>> GetPokemonStorableInAsync(params GameVersion[] storeIn);

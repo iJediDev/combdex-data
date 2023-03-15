@@ -16,7 +16,9 @@ namespace Pokedex.Models.LivingDex
         /// </summary>
         public string Identifier => Form?.Nid;
 
-        public string Name => Form?.Name;
+        public string Name { get; set; }
+
+        public string FormName { get; set; }
 
         public bool IsFemaleForm => Form?.IsFemaleForm ?? false;
 

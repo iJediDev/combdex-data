@@ -52,6 +52,11 @@ namespace Pokedex.Logic.Processes
             {
                 var entry = new LivingEntry(form);
                 entry.IsShiny = options.IsShinyDex;
+
+                var (name, formName) = _pokeHttpClient.GetNameAndForm(form);
+                entry.Name = name;
+                entry.FormName = formName;
+
                 livingEntries.Add(entry);
             }
 
@@ -117,10 +122,10 @@ namespace Pokedex.Logic.Processes
                 if(evoFamily != null)
                 {
                     var evoIds = formDetails
-                    .Where(f => evoFamily.FamilySpeciesNumbers.Contains(f.DexNum))
-                    .Where(f => f.DexNum != detail.DexNum && livingDexFormIds.Contains(f.Nid))
-                    .Select(f => f.Nid)
-                    .ToList();
+                        .Where(f => evoFamily.FamilySpeciesNumbers.Contains(f.DexNum))
+                        .Where(f => f.DexNum != detail.DexNum && livingDexFormIds.Contains(f.Nid))
+                        .Select(f => f.Nid)
+                        .ToList();
                     result.RelatesTo = evoIds;
                 }
 

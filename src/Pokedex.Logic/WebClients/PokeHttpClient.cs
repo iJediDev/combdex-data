@@ -81,5 +81,54 @@ namespace Pokedex.Logic.WebClients
             var result = await WebClientHelper.GetResourceAsync<string>(_config["PokeEvolutionsURI"], PokemonDb);
             return result;
         }
+
+        public (string, string) GetNameAndForm(PokemonForm pokemonForm)
+        {
+            var name = pokemonForm.Name;
+            var form = pokemonForm.FormName?.Replace("(", string.Empty).Replace(")", string.Empty);
+
+            if (string.IsNullOrEmpty(pokemonForm.FormId) == false && string.IsNullOrEmpty(pokemonForm.FormName) == false)
+            {
+                // Replace with and without parenthesis
+                name = name.Replace(pokemonForm.FormName, string.Empty).Replace(form, string.Empty);
+            }
+
+            var toReplace = new string[]
+            {
+                "(",
+                ")",
+                " Female",
+                " Cloak",
+                " Standard Mode",
+
+                "Alolan",
+                "Galarian",
+                "Hisuian",
+                "Paldean",
+            };
+
+            foreach (var item in toReplace)
+                name = name.Replace(item, string.Empty);
+
+            // Some names/forms need manual adjusting
+            switch (pokemonForm.Id)
+            {
+                case "unown-u":
+                    name = "Unown";
+                    break;
+
+                case "hooh":
+                case "porygonz":
+                    form = null;
+                    break;
+            }
+
+            if (pokemonForm.Id.StartsWith("flabebe"))
+                name = "Flabébé";
+
+            name = (name ?? "").Trim();
+            form = (form ?? "").Trim();
+            return (name, form);
+        }
     }
 }
