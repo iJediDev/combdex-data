@@ -127,7 +127,7 @@ namespace Pokedex.Logic.WebClients
                 name = "Flabébé";
 
             name = (name ?? "").Trim();
-            form = (form ?? "").Trim();
+            form = form != null ? form.Trim() : null;
             return (name, form);
         }
     }
