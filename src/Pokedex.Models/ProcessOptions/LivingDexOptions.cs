@@ -10,8 +10,12 @@ namespace Pokedex.Models.ProcessOptions
         [Option('o', "out", Required = false, Default = "C:\\Projects\\Combdex-Data\\data", HelpText = "Directory for output files.")]
         public string OutputDirectory { get; set; }
 
-        [Option('v', "version", Required = true, HelpText = "The version of the game that the Pokémon can be stored in.")]
-        public GameVersion GameVersion { get; set; }
+        [Option('v', "version", Required = false, HelpText = "The version of the game that the Pokémon can be stored in.")]
+        public GameVersion? StoreVersion { get; set; }
+
+        [Option('d', "debut", Required = false, HelpText = "The version of the game that the Pokémon debuted in.")]
+        public GameVersion? DebutVersion { get; set; }
+
 
         [Option('s', "shiny", Required = false, Default = false, HelpText = "Use this to filter out shiny locked Pokémon.")]
         public bool IsShinyDex { get; set; }

@@ -6,7 +6,6 @@ namespace Pokedex.Logic.Sorting
     {
         public List<LivingDexBox> Sort(List<LivingEntry> entries)
         {
-
             // All of these forms should go to the end
             var pikachuCaps = entries.Where(e => e.IsPikachuCap == true).ToList();
 

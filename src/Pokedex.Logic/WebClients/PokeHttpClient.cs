@@ -35,6 +35,13 @@ namespace Pokedex.Logic.WebClients
             return results;
         }
 
+        public async Task<List<PokemonForm>> GetPokemonDebutedInAsync(GameVersion storeIn)
+        {
+            var results = await GetPokeFormsAsync();
+            results = results.Where(p => p.DebutIn == storeIn).ToList();
+            return results;
+        }
+
         public async Task<Dictionary<string, (int, int)>> GetSpriteSheetCoordsAsync()
         {
             var results = new Dictionary<string, (int, int)>();

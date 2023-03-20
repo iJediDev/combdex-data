@@ -8,6 +8,7 @@ using Pokedex.Models.LivingDex;
 using Pokedex.Models.PokeInfo;
 using Pokedex.Models.PokemonDb;
 using Pokedex.Models.ProcessOptions;
+using Pokedex.Models.SuperEffectiveAssets;
 
 namespace Pokedex.Logic.Processes
 {
@@ -24,9 +25,19 @@ namespace Pokedex.Logic.Processes
 
         public async Task<LivingPokedex> GetLivingDex(LivingDexOptions options)
         {
-            var forms = await _pokeHttpClient.GetPokemonStorableInAsync(options.GameVersion);
+            List<PokemonForm> forms;
 
-            if(options.IsUniqueAlcremie)
+            if (options.StoreVersion.HasValue)
+                forms = await _pokeHttpClient.GetPokemonStorableInAsync(options.StoreVersion.Value);
+            else if (options.DebutVersion.HasValue)
+                forms = await _pokeHttpClient.GetPokemonDebutedInAsync(options.DebutVersion.Value);
+            else
+                throw new Exception("Version or Debut option is required.");
+
+            // Exclude mons with no dex number
+            forms = forms.Where(f => f.DexNum > 0).ToList();
+
+            if (options.IsUniqueAlcremie)
             {
                 // Filter out duplicate Alcremie forms. The shiny versions appear the same.
 

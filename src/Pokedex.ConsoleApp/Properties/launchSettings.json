@@ -6,11 +6,11 @@
     },
     "Scarlet/Violet": {
       "commandName": "Project",
-      "commandLineArgs": "living -v \"sv\" -n \"Scarlet-Violet Normal\""
+      "commandLineArgs": "living -d \"sv\" -n \"Scarlet-Violet Normal\""
     },
     "Scarlet/Violet Shiny": {
       "commandName": "Project",
-      "commandLineArgs": "living -v \"sv\" -n \"Scarlet-Violet Shiny\" -s --uniquealcremie "
+      "commandLineArgs": "living -d \"sv\" -n \"Scarlet-Violet Shiny\" -s --uniquealcremie "
     },
     "Home Shiny": {
       "commandName": "Project",
