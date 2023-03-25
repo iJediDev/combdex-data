@@ -37,26 +37,6 @@ namespace Pokedex.Logic.Processes
             // Exclude mons with no dex number
             forms = forms.Where(f => f.DexNum > 0).ToList();
 
-            if (options.IsUniqueAlcremie)
-            {
-                // Filter out duplicate Alcremie forms. The shiny versions appear the same.
-
-                // Find the first form of Alcremie
-                // IE: vanilla-cream-strawberry => vanilla-cream
-                var defaultForm = forms.Where(f => f.DexNum == (int)Species.Alcremie).FirstOrDefault();
-                if(defaultForm != null)
-                {
-                    var defaultFormId = defaultForm.FormId.Substring(0, defaultForm.FormId.LastIndexOf('-'));
-
-                    // Remove all Alcremie forms that aren't the default vanilla-cream
-                    forms.RemoveAll(f => f.DexNum == defaultForm.DexNum && f.FormId.StartsWith(defaultFormId) == false);
-
-                    // TODO: Fix Alcremie names
-                    // IE: Alcremie (Caramel Swirl Flower) => Alcremie (Flower)
-                }
-            }
-
-
             // Convert to living entry
             var livingEntries = new List<LivingEntry>();
             foreach(var form in forms)

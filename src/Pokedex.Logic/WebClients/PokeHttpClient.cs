@@ -31,14 +31,14 @@ namespace Pokedex.Logic.WebClients
         public async Task<List<PokemonForm>> GetPokemonStorableInAsync(params GameVersion[] storeIn)
         {
             var results = await GetPokeFormsAsync();
-            results = results.Where(p => p.StorableIn.Any(s => storeIn.Contains(s))).ToList();
+            results = results.Where(p => p.StorableIn.Any(s => storeIn.Contains(s)) && p.IsBattleOnlyForm == false).ToList();
             return results;
         }
 
         public async Task<List<PokemonForm>> GetPokemonDebutedInAsync(GameVersion storeIn)
         {
             var results = await GetPokeFormsAsync();
-            results = results.Where(p => p.DebutIn == storeIn).ToList();
+            results = results.Where(p => p.DebutIn == storeIn && p.IsBattleOnlyForm == false).ToList();
             return results;
         }
 

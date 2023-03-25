@@ -10,11 +10,11 @@
     },
     "Scarlet/Violet Shiny": {
       "commandName": "Project",
-      "commandLineArgs": "living -d \"sv\" -n \"Scarlet-Violet Shiny\" -s --uniquealcremie "
+      "commandLineArgs": "living -d \"sv\" -n \"Scarlet-Violet Shiny\" -s"
     },
     "Home Shiny": {
       "commandName": "Project",
-      "commandLineArgs": "living -v \"home\" -s --uniquealcremie -n \"Home Shiny\""
+      "commandLineArgs": "living -v \"home\" -s -n \"Home Shiny\""
     },
     "Home Living": {
       "commandName": "Project",
