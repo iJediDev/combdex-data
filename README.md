@@ -1,6 +1,6 @@
 ## **What is this?**
-This project consumes data from the [SuperEffective-Assets](https://github.com/itsjavi/supereffective-assets) repo. These C# projects take their data and convert into a format that I use for a personal Pokédex project.
+This project contains all the Pokémon HOME sprites. These sprites are only used for a personal Pokédex project.
 
-That group deserves all of the credit for gathering the data. Check out their website here: https://supereffective.gg
+Most of the sprites were obtained from [PokéJungle](https://pokejungle.net/).
 
-Currently, all of the data in this project is derived from their repo.
+Missing and shiny locked sprites were obtained from the [SuperEffective-Assets](https://github.com/itsjavi/supereffective-assets). Check out their website here: https://supereffective.gg
